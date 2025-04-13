@@ -10,7 +10,7 @@ Special thanks to https://github.com/microsoft/playwright-mcp for the server.
 import asyncio
 
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 
 from mcp_use import MCPAgent, MCPClient
 
@@ -27,7 +27,7 @@ async def run_memory_chat():
 
     # Create MCP client and agent with memory enabled
     client = MCPClient.from_config_file(config_file)
-    llm = ChatOpenAI(model="gpt-4o-mini")
+    llm = ChatGroq(model="llama-3.3-70b-versatile")
 
     # Create agent with memory_enabled=True
     agent = MCPAgent(

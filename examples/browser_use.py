@@ -11,7 +11,7 @@ import asyncio
 import os
 
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 
 from mcp_use import MCPAgent, MCPClient
 
@@ -25,17 +25,17 @@ async def main():
     client = MCPClient.from_config_file(os.path.join(os.path.dirname(__file__), "browser_mcp.json"))
 
     # Create LLM
-    llm = ChatOpenAI(model="gpt-4o")
+    # llm = ChatOpenAI(model="gpt-4o")
     # llm = init_chat_model(model="llama-3.1-8b-instant", model_provider="groq")
     # llm = ChatAnthropic(model="claude-3-")
-    # llm = ChatGroq(model="llama3-8b-8192")
+    llm = ChatGroq(model="deepseek-r1-distill-llama-70b")
 
     # Create agent with the client
     agent = MCPAgent(llm=llm, client=client, max_steps=30)
 
     # Run the query
     result = await agent.run(
-        "Find the best restaurant in San Francisco USING GOOGLE SEARCH",
+        "Find the best restaurant in San Francisco BROWSER USING GOOGLE SEARCH",
         max_steps=30,
     )
     print(f"\nResult: {result}")
